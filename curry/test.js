@@ -1,5 +1,5 @@
 var assert = require('assert');
-var curry = require('./');
+import curry from './';
 
 describe('curry', function() {
 
