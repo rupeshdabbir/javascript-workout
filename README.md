@@ -1,4 +1,5 @@
-[![Gitter][gitter-image]][gitter-url]
+# Javascript Workout
+My javascript workout
 
 These are some basic (and advanced) coding challenges
 
@@ -25,3 +26,5 @@ Pull requests welcome, please follow the basic workflow:
 
 [gitter-image]: https://badges.gitter.im/Join%20Chat.svg
 [gitter-url]: https://gitter.im/kolodny/exercises
+
+All credits belong to [javascript-workout](https://github.com/kolodny/exercises)
