@@ -2,6 +2,26 @@ var assert = require('assert');
 var Middleware = require('./');
 
 describe('middleware', function() {
+  it('very simple version of middleware without next()', function() {
+
+    var middleware = new Middleware();
+
+    middleware.use(function() {
+      var ctx = this;
+      ctx.x = 10;
+    });
+
+    middleware.use(function() {
+      var ctx = this;
+      ctx.y = 20;
+    });
+
+    middleware.go(function() {
+      assert.equal(this.x, 10);
+      assert.equal(this.y, 20);
+    });
+  });
+
   it('works with a single instance', function(done) {
 
     var middleware = new Middleware();

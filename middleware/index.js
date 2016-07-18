@@ -2,22 +2,20 @@
 
 class Middleware {
   constructor() {
-    this.middlewares = [];
+    this.fns = [];
   }
 
   use(fn) {
-    const self = this;
-    this.go = (function(stack) {
-      return function(next) {
-        stack.call(self, function() {
-          fn.call(self, next.bind(self));
-        });
-      }.bind(this);
-    })(this.go);
+    this.fns.push(fn);
+    return this;
   }
 
   go(next) {
-    next();
+    let i = this.fns.length;
+    while(i--) {
+      const fn = this.fns[i];
+      fn.apply(this);
+    }
   }
 }
 
