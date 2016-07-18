@@ -1,23 +1,24 @@
 'use stricts';
 
-module.exports = function() {
-
-  let middlewares = [];
-
-  function use(middleware) {
-    middlewares.push(middleware);
+class Middleware {
+  constructor() {
+    this.middlewares = [];
   }
 
-  function go() {
-    const cxt = this;
-    for(let i = 0; i < middlewares.length; i++) {
-      const middleware = middlewares[i];
-      middleware.bind(cxt);
-    }
+  use(fn) {
+    const self = this;
+    this.go = (function(stack) {
+      return function(next) {
+        stack.call(self, function() {
+          fn.call(self, next.bind(self));
+        });
+      }.bind(this);
+    })(this.go);
   }
 
-  return {
-    use: use,
-    go: go
+  go(next) {
+    next();
   }
 }
+
+module.exports = Middleware;
